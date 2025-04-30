@@ -1,6 +1,6 @@
 // LightCore Framework
 // (c) 2025 Gabriele Difalco
-// Licensed under the LightCore License – Personal Use & Attribution
+// Licensed under the LightCore License – Limited Source Use
 // SPDX-License-Identifier: LicenseRef-LightCore
 
 package annotations.web;
