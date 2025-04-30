@@ -1,57 +1,41 @@
-# LightCore License – Personal Use & Attribution
+# LightCore License – Limited Source Use
+
 (c) 2025 Gabriele Difalco  
 Version 1.0 – April 2025
 
----
-
 ## Summary
 
-This software, **LightCore**, is released under a custom open-use license.  
-You are allowed to use it freely, **but without modification or redistribution** of its source code, and only **with clear attribution to the original author**.
+LightCore is released under a custom license that permits free use as a backend dependency in applications (both personal and commercial), without requiring public attribution. However, modification of the Java core code is **strictly forbidden**, except for specific Node.js script files generated per project.
 
 ---
 
-## You Are Free To:
+## You Are Permitted To:
+- Use LightCore in personal or commercial applications as a backend dependency.
+- Include LightCore in private or public projects.
+- Modify the `query-executor.js`, `file-executor.js`, and other Node.js scripts generated inside the `node-scripts/` folder of your project.
 
-- **Use** LightCore in personal or commercial projects.
-- **Study** and understand its code for educational purposes.
-- **Integrate** LightCore into applications as a backend framework dependency.
+## You Are **Not** Permitted To:
+- Modify, fork, or distribute the Java core source code of LightCore.
+- Remove or alter this license or copyright notices.
+- Redistribute LightCore as a framework under your name or brand.
+- Include LightCore (Java core) in another library or framework.
 
----
+## Attribution (Optional):
+Attribution is appreciated but **not required** for software that uses LightCore as a dependency.  
+However, if LightCore is mentioned in documentation, you are encouraged to include:
 
-## You Are Not Allowed To:
-
-- **Modify** the source code of LightCore.
-- **Redistribute** any part of LightCore as a fork, clone, or altered version.
-- **Remove or alter** this license or the original copyright header.
-- **Use the LightCore name or logo** for your own framework, distribution, or branding without express written permission.
-
----
-
-## Attribution Requirement:
-
-You **must credit** the original author by including this line in any public use (docs, websites, or UIs):
-
-> “Built with LightCore by Gabriele Difalco”  
-> (https://github.com/gabrieledifalco/lightcore)
-
----
+> _“Powered by LightCore – https://github.com/gabrieledifalco/lightcore”_
 
 ## Enforcement:
+Any violation of these terms results in immediate termination of this license.  
+Legal actions may be taken under Italian and international copyright law.
 
-Any violation of these terms will result in **immediate termination** of this license.  
-Legal action may be taken in accordance with Italian and international intellectual property law.
-
----
-
-## Author and Copyright:
-
-**Gabriele Difalco**  
-Italy – 2024  
-Contact: gabriele.difalco240@gmail.com
-
-This software is distributed “AS IS” without warranties of any kind.
+## Disclaimer:
+This software is provided “AS IS” without any warranties.  
+The author is not responsible for any damage or issues resulting from usage or modification of the generated Node.js scripts.
 
 ---
 
-_Last updated: April 2025_
+**Author**: Gabriele Difalco  
+**Contact**: gabriele.difalco240@gmail.com  
+**Last updated**: April 2025
