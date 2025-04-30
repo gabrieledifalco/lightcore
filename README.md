@@ -249,3 +249,6 @@ public class PasswordHandler {
 ```
 
 Currently, there's no technical difference between `@Service` and `@Component` beyond convention.
+<br>
+<br>
+# 🚫 This repository is not intended for forking or redistribution. All rights reserved – see LICENSE.md for usage limitations.
