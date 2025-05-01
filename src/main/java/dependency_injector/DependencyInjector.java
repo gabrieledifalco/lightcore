@@ -114,7 +114,7 @@ public class DependencyInjector {
 
     /**
      * Scans for classes annotated with supported dependency injection annotations
-     * such as @Service, @Repository, @RestController, or @Module.
+     * such as @Service, @Repository, @RestController, ecc...
      *
      * @param basePackage the base package to scan
      * @return a set of classes annotated with supported annotations

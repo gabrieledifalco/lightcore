@@ -7,20 +7,25 @@ package server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import database_config.ConfigPropertiesGenerator;
 import router.Router;
 
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class HTTPServerStarter {
     private static final Logger logger = Logger.getLogger(HTTPServerStarter.class.getName());
 
     private static final String CONFIG_FILE_PATH = "src/main/resources/lightcoreconfig/config.properties";
     private static final int DEFAULT_SERVER_PORT = 9123;
+    private static boolean isCrossOriginEnabled = false;
+    private static List<String> allowedOrigins = new ArrayList<>();
 
     private static HttpServer server;
     private static int currentPort = -1;
@@ -32,6 +37,7 @@ public class HTTPServerStarter {
     }
 
     private static void startServer(int port) throws IOException {
+        enableCrossOrigin();
         if(server != null) {
             logger.info("Stopping server on port " + currentPort);
             server.stop(0);
@@ -54,6 +60,25 @@ public class HTTPServerStarter {
                     os.write(notFound.getBytes());
                 }
 
+                return;
+            }
+
+            if(isCrossOriginEnabled) {
+                String origin = exchange.getRequestHeaders().getFirst("Origin");
+
+                if(origin != null && allowedOrigins.contains(origin)) {
+                    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", origin);
+                    exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+                    exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+                } else if (allowedOrigins.contains("*")) {
+                    exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+                    exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+                    exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+                }
+            }
+
+            if("OPTIONS".equalsIgnoreCase(method)){
+                exchange.sendResponseHeaders(204, -1);
                 return;
             }
 
@@ -129,6 +154,28 @@ public class HTTPServerStarter {
         catch (IOException | NumberFormatException e) {
             logger.info("Error reading port. Using default");
             return DEFAULT_SERVER_PORT;
+        }
+    }
+
+    private static void enableCrossOrigin() {
+        Properties properties = new Properties();
+        File file = new File(CONFIG_FILE_PATH);
+
+        if(!file.exists()) return;
+
+        try(InputStream inputStream = new FileInputStream(file)) {
+            properties.load(inputStream);
+            isCrossOriginEnabled = Boolean.parseBoolean(properties.getProperty("server.crossOrigin", "false"));
+            String originString = properties.getProperty("server.allowedOrigins", "*");
+
+            if(!originString.isEmpty()) {
+                allowedOrigins = Arrays.stream(originString.split(","))
+                                       .map(String::trim)
+                                       .collect(Collectors.toList());
+            }
+        }
+        catch(IOException e) {
+            logger.info("Error reading config, CORS disabled by default");
         }
     }
 }

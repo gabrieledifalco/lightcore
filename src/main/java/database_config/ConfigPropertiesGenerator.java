@@ -28,6 +28,8 @@ public class ConfigPropertiesGenerator {
     
     #Server Configuration
     server.port=
+    server.crossOrigin=false
+    server.allowedOrigins=
     """;
 
     public static void generateIfMissing() throws IOException {
