@@ -50,19 +50,6 @@ public class HTTPServerStarter {
             String method = exchange.getRequestMethod();
             String path = exchange.getRequestURI().getPath();
 
-            Router.Route route = Router.getHandler(method, path);
-
-            if(route == null) {
-                String notFound = "404 Not Found";
-                exchange.sendResponseHeaders(404, notFound.length());
-
-                try (OutputStream os = exchange.getResponseBody()) {
-                    os.write(notFound.getBytes());
-                }
-
-                return;
-            }
-
             if(isCrossOriginEnabled) {
                 String origin = exchange.getRequestHeaders().getFirst("Origin");
 
@@ -79,6 +66,19 @@ public class HTTPServerStarter {
 
             if("OPTIONS".equalsIgnoreCase(method)){
                 exchange.sendResponseHeaders(204, -1);
+                return;
+            }
+
+            Router.Route route = Router.getHandler(method, path);
+
+            if(route == null) {
+                String notFound = "404 Not Found";
+                exchange.sendResponseHeaders(404, notFound.length());
+
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(notFound.getBytes());
+                }
+
                 return;
             }
 
